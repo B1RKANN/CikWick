@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _orientationTransform;
@@ -15,6 +15,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private float _jumpForce;
 
     [SerializeField] private float _jumpCooldown;
+    [SerializeField] private float _airMultiplier;
+    [SerializeField] private float _airDrag;
     private Vector3 _movementDirection;
     private bool _canJump = true;
 
@@ -28,12 +30,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private float _groundDrag;
 
+    private StateController _stateController;
 
     private float _horizontalInput,_verticalInput;
     private bool _isSliding = false;
 
     private void Awake()
     {
+        _stateController = GetComponent<StateController>();
         _playerRigidbody = GetComponent<Rigidbody>();
         _playerRigidbody.freezeRotation = true;
     }
@@ -41,6 +45,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void Update()
     {
        SetInputs();   
+       SetStates();
        SetPlayerDrag();
     }
 
@@ -67,14 +72,35 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
     }
 
+    private void SetStates(){
+        var movementDirection = GetMovementDirection();
+        var isGrounded = IsGrounded();
+        var currentState = _stateController.GetCurrentState();
+        var isSliding = IsSliding();
+
+        var newState = currentState switch {
+            _ when movementDirection == Vector3.zero && isGrounded && !isSliding => PlayerState.Idle,
+            _ when movementDirection != Vector3.zero && isGrounded && !isSliding => PlayerState.Move,
+            _ when movementDirection != Vector3.zero && isGrounded && isSliding => PlayerState.Slide,
+            _ when movementDirection == Vector3.zero && isGrounded && isSliding => PlayerState.SlideIdle,
+            _ when !_canJump && !isGrounded => PlayerState.Jump,
+            _ => currentState
+        };
+        if(newState != currentState){
+            _stateController.ChangeState(newState);
+        }
+    }
+
     private void SetPlayerMovement(){
         _movementDirection = _orientationTransform.forward * _verticalInput + _orientationTransform.right * _horizontalInput;
-        if(_isSliding){
-        _playerRigidbody.AddForce(_movementDirection.normalized * _movementSpeed* _slideMultiplier, ForceMode.Force);
-        }
-        else{
-            _playerRigidbody.AddForce(_movementDirection.normalized * _movementSpeed, ForceMode.Force);
-        }
+        float forceMultiplier = _stateController.GetCurrentState() switch
+        {
+            PlayerState.Move => 1f,
+            PlayerState.Slide => _slideMultiplier,
+            PlayerState.Jump => _airMultiplier,
+            _ => 1f
+        };
+        _playerRigidbody.AddForce(_movementDirection.normalized * _movementSpeed* forceMultiplier, ForceMode.Force);
     }
 
     private void SetPlayerJumping(){
@@ -83,12 +109,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
 
     private void SetPlayerDrag(){
-        if(_isSliding){
-        _playerRigidbody.linearDamping = _slideDrag;
-        }
-        else{
-            _playerRigidbody.linearDamping = _groundDrag;
-        }
+        _playerRigidbody.linearDamping = _stateController.GetCurrentState() switch {
+            PlayerState.Move => _groundDrag,
+            PlayerState.Slide => _slideDrag,
+            PlayerState.Jump => _airDrag,
+            _ => _playerRigidbody.linearDamping
+        };
     }
 
     private void ResetJump(){
@@ -97,5 +123,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private bool IsGrounded(){
         return Physics.Raycast(transform.position, Vector3.down,_playerHighth*0.5f+0.2f, _groundLayer);
+    }
+
+    private Vector3 GetMovementDirection(){
+        return _movementDirection.normalized;
+    }
+    private bool IsSliding(){
+        return _isSliding;
     }
 }
