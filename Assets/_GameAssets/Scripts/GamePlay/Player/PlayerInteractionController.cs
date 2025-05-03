@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerInterationController : MonoBehaviour
+public class PlayerInteractionController : MonoBehaviour
 {   
     private PlayerController _playerController;
 
