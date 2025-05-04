@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Consts
 {
+    public struct SceneNames{
+        public const string GAME_SCENE = "GameScene";
+    }
     public struct PlayerAnimations{
         public const string IS_MOVING ="IsMoving";
         public const string IS_JUMPİNG ="IsJumping";
