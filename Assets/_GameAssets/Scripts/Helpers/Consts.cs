@@ -10,6 +10,12 @@ public class Consts
         public const string GROUND_LAYER = "Ground";
         public const string FLOOR_LAYER = "Floor";
     }
+    public struct CatAnimations{
+        public const string IS_IDLING = "IsIdling";
+        public const string IS_WALKING = "IsWalking";
+        public const string IS_RUNNING = "IsRunning";
+        public const string IS_ATTAKING = "IsAttacking";
+    }
     public struct PlayerAnimations{
         public const string IS_MOVING ="IsMoving";
         public const string IS_JUMPİNG ="IsJumping";
