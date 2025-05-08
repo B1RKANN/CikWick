@@ -21,5 +21,6 @@ public class HolyWheatCollectible : MonoBehaviour,ICollectible
     _wheatDesignSO.ActiveSprite,_wheatDesignSO.PassiveSprite,_wheatDesignSO.ActiveWheatSprite,
     _wheatDesignSO.PassiveWheatSprite,_wheatDesignSO.ResetBoostDuration);
     Destroy(gameObject);
+    AudioManager.Instance.Play(SoundType.PickupGoodSound);
   }
 }

@@ -14,6 +14,7 @@ public class EggCollectible : MonoBehaviour, ICollectible
             GetComponent<Collider>().enabled = false;
         }
         GameManager.Instance.OnEggCollected();
+         AudioManager.Instance.Play(SoundType.PickupGoodSound);
         Destroy(gameObject);
     }
 }

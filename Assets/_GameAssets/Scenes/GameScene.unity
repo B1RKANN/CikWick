@@ -1645,8 +1645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -4099,7 +4099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -4578,6 +4578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1032812379}
   - component: {fileID: 1032812378}
+  - component: {fileID: 1032812380}
   m_Layer: 0
   m_Name: TimeLineManager
   m_TagString: Untagged
@@ -4621,6 +4622,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1032812380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032812377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc361b0b467e91428aba782aea883de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 925678008}
 --- !u!1 &1064705770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4818,6 +4832,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7947798e94b2bf348873c43940808bbd, type: 3}
+--- !u!1001 &1127842935
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7798598451001105288, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -38.630917
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.344519
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 69.25495
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700976147471157394, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b07f6b3288b1f44ea71945a04113e4f, type: 3}
 --- !u!1 &1134020342
 GameObject:
   m_ObjectHideFlags: 0
@@ -8114,6 +8185,7 @@ MonoBehaviour:
   _boosterSpeedTransform: {fileID: 1465639091}
   _boosterJumpTransform: {fileID: 1317960190}
   _boosterSlowTransform: {fileID: 1474527405}
+  _playableDirector: {fileID: 1032812378}
   _goldBoosterWheatImage: {fileID: 485946722}
   _holyBoosterWheatImage: {fileID: 620601437}
   _rottenBoosterWheatImage: {fileID: 1527854949}
@@ -12215,6 +12287,7 @@ SceneRoots:
   - {fileID: 1602852624}
   - {fileID: 52437429}
   - {fileID: 1516350084}
+  - {fileID: 1127842935}
   - {fileID: 1032812379}
   - {fileID: 1345226036}
   - {fileID: 925678009}
